@@ -10,6 +10,8 @@ import {CognitoGuard} from "./cognito.guard";
 import {AwsModule} from "./aws/aws.module";
 import { NavbarComponent } from './navbar/navbar.component';
 
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+
 
 @NgModule({
   declarations: [
@@ -19,9 +21,10 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AmplifyAngularModule
   ],
-  providers: [CognitoService, CognitoGuard],
+  providers: [CognitoService, CognitoGuard, AmplifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

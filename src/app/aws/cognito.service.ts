@@ -35,6 +35,7 @@ export class CognitoService {
         console.log("Login failed");
       } else {
         localStorage.setItem('cognito-creds', JSON.stringify(this.cognitoCreds));
+        //
         this.router.navigate(['/secure']);
         console.log("Login success ");
       }

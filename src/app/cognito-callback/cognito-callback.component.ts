@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {CognitoService} from "../aws/cognito.service";
-import {CognitoAuth} from 'amazon-cognito-auth-js';
+import { Router} from "@angular/router";
+import { Hub } from 'aws-amplify';
 
 @Component({
   selector: 'app-cognito-callback',
@@ -10,13 +9,27 @@ import {CognitoAuth} from 'amazon-cognito-auth-js';
 })
 export class CognitoCallbackComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private cognitoService: CognitoService) {}
+  // constructor(private route: ActivatedRoute, private cognitoService: CognitoService) {}
+  //
+  // ngOnInit() {
+  //   this.route.fragment.subscribe(params => {
+  //     const parameter = params.split('&');
+  //     const idToken = parameter[0].split('=')[1];
+  //     this.cognitoService.login(idToken);
+  //   });
+  // };
 
-  ngOnInit() {
-    this.route.fragment.subscribe(params => {
-      const parameter = params.split('&');
-      const idToken = parameter[0].split('=')[1];
-      this.cognitoService.login(idToken);
-    });
-  };
+  // Using HUB Middleware to listen for authentication
+  constructor(private router: Router) {
+    Hub.listen('auth', this, 'AuthCodeListener');
+  }
+
+  onHubCapsule(capsule) {
+    const { channel, payload } = capsule;
+    if(channel === 'auth' && payload.event === 'signIn') {
+      this.router.navigate([])
+    }
+  }
+
+  ngOnInit() {}
 }
