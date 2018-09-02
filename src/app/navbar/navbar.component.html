@@ -1,0 +1,13 @@
+<nav class="navbar sticky-top navbar-dark bg-dark">
+
+  <a class="navbar-brand" href="#">
+    <img src="assets/images/aws-cognito.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    Hosted UI Example
+  </a>
+
+  <div class="navbar-nav mr-2">
+    <div class="nav-item" *ngIf="!isLoggedIn()">
+      <a class="nav-link" href="#">Login</a>
+    </div>
+  </div>
+</nav>
